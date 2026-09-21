@@ -8,7 +8,7 @@ happy path but is riddled with edge-case bugs). See submission.md for
 details.
 """
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 app = FastAPI(title="Knight Cash API")
@@ -29,12 +29,24 @@ class TransferRequest(BaseModel):
 
 @app.get("/balance/{account_id}")
 def get_balance(account_id: str):
-    balance = accounts[account_id]
-    return {"account_id": account_id, "balance": balance}
+    if account_id not in accounts:
+        raise HTTPException(status_code=404, detail="Account not found")
+    return {"account_id": account_id, "balance": accounts[account_id]}
 
 
 @app.post("/transfer")
 def transfer(req: TransferRequest):
+    if req.from_account not in accounts:
+        raise HTTPException(status_code=404, detail="Source account not found")
+    if req.to_account not in accounts:
+        raise HTTPException(status_code=404, detail="Destination account not found")
+    if req.from_account == req.to_account:
+        raise HTTPException(status_code=400, detail="Cannot transfer to the same account")
+    if req.amount <= 0:
+        raise HTTPException(status_code=400, detail="Transfer amount must be greater than zero")
+    if accounts[req.from_account] < req.amount:
+        raise HTTPException(status_code=400, detail="Insufficient funds")
+
     accounts[req.from_account] -= req.amount
     accounts[req.to_account] += req.amount
 
