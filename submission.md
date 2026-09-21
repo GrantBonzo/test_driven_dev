@@ -41,5 +41,3 @@ This produced `test_transfer_exact_balance_is_allowed` in `test_knight_cash.py`.
 ## 4. GitHub Link
 
 https://github.com/GrantBonzo/test_driven_dev
-
-(See commit history for the Red → Green progression: the first commit contains the reconstructed original buggy API plus the failing pytest suite; the second commit contains the fixes and the now-passing suite.)
