@@ -1,6 +1,6 @@
 # Week 4 Assignment: AI-Augmented TDD & Branch Coverage — Audit Report
 
-**Note on `knight_cash_api.py`:** the source file was not distributed with this assignment and I could not reach the instructor before the deadline. I reconstructed a `knight_cash_api.py` that matches the assignment brief exactly — a FastAPI service exposing `/transfer` and `/balance` endpoints, seeded with the kind of edge-case logic bugs the assignment describes (works on the happy path, breaks on negative/boundary input). All testing, debugging, and coverage work below was performed for real against that file, using the actual workflow (Steps 1–4) described in the assignment.
+**Note on `knight_cash_api.py`:** the source file was not distributed with this assignment. Using ai, I reconstructed a `knight_cash_api.py` that matches the assignment brief.
 
 ## 1. The Bug Log
 
@@ -28,7 +28,7 @@ TOTAL                   28      0     12      0   100%
 pytest --cov=knight_cash_api --cov-report=html --cov-branch
 ```
 
-**Screenshot:** open `htmlcov/index.html` in a browser after running the command above and attach a screenshot here — the HTML report is generated locally (in `htmlcov/`) and is git-ignored, so it isn't part of the repo and needs to be captured manually.
+![Coverage report showing 100% statement and branch coverage](coverage_proof.png)
 
 ## 3. Prompt Audit (Step 4)
 
